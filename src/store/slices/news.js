@@ -13,5 +13,5 @@ const newsSlice = createSlice({
 });
 
 
-export const { setProducts } = newsSlice.actions;
+export const { setNews } = newsSlice.actions;
 export default newsSlice.reducer;
