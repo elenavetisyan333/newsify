@@ -4,20 +4,39 @@
     text-shadow: 2px 1px 1px rgba(0, 0, 0, 0.8);
     padding: 10px 10px;
     display: flex;
-    flex-direction: column;
     justify-content: space-between;
-    gap: 5px;
+    flex-direction: column;
+    gap: 10px;
 
 }
 
 .article img{
     width: 100%;
-    height: 50%;
+    height: 250px;
 }
-
+.author{
+    margin-top: 3px;
+    color: #F5CB5C;
+}
 .description{
     color: #ebebeb;
 }
 .date{
     text-align: end;
+    margin-top: 3px;
+    color: #CFDBD5;
+}
+
+.forReader{
+    display: flex;
+    justify-content: space-between;
+}
+.saveAndShare{
+    display: flex;
+    gap:14px;
+    font-size: 21px;
+    color: #ebebeb;
+}
+.forReader p{
+    font-size: 14px;
 }

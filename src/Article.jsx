@@ -17,10 +17,18 @@ function Article({article}) {
         <p className={styles.description}>{article.description}</p>
 
         <div className={styles.authorAndDate}>
-            <p>{article.author}</p>
+            <p className={styles.author}>{article.author}</p>
             <p className={styles.date}>{formattedDate}</p>
         </div>
-        
+
+        <div className={styles.forReader}>
+          <div className={styles.saveAndShare}>
+            <i className="fa-regular fa-bookmark"></i>
+            <i className="fa-regular fa-paper-plane"></i>
+          </div>
+
+          <p>Read More...</p>
+        </div>
     </div>
   );
 }
