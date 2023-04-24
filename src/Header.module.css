@@ -1,6 +1,6 @@
 .header {
-    background-color: #1f1f1f;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+    background-color: #171717;
+    box-shadow: 0 2px 7px rgba(0, 0, 0, 0.7);
     padding: 20px;
 }
 
@@ -8,6 +8,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+    padding: 0px 20px;
 }
 
 .searchBox{
@@ -17,13 +18,13 @@
 
 .searchInput{
     width: 200px;
-    padding: 8px 40px 8px 20px;
+    padding: 6px 40px 6px 17px;
     border: none;
     outline: none;
     border-radius: 25px;
-    background-color: #f2f2f2;
+    background-color: rgba(255, 255, 255, 0.1);
     font-size: 16px;
-    color: #333;
+    color: #b7b7b7;
 }
 
 .searchIcon{
@@ -33,5 +34,6 @@
     transform: translateY(-50%);
     padding: 5px;
     font-size: 18px;
-    color: #333;
+    color: #d8d8d8;
+
 }
