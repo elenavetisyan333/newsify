@@ -7,7 +7,17 @@ const savedNewsSlice = createSlice({
     },
     reducers: {
         setSavedNews(state, {payload}){
-            state.savedNews = payload;
+            const exists = Array.from(state.savedNews).find(news => news.url == payload.article.url);
+            if(exists){
+                state.savedNews = state.savedNews.filter(news =>{
+                    return news.url != payload.article.url;
+                });
+            }
+            else{
+                state.savedNews = [
+                    ...state.savedNews, payload.article
+                ];
+            }
         }
     }
 });
