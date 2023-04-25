@@ -15,8 +15,9 @@ function Article({article, onClick}) {
       dispatch(setSavedNews({article}));
       setSaved(!saved);
     }
+    
   return (
-    <div className={styles.article} onClick={onClick}>
+    <div className={styles.article}>
 
         <img src={article.urlToImage ? article.urlToImage : "https://storage.googleapis.com/stenbracka/public/placeholder.jpg"} alt="article-photo" />
 
@@ -35,7 +36,7 @@ function Article({article, onClick}) {
             <i className="fa-regular fa-paper-plane" onClick={() => navigator.share(article)} />
           </div>
 
-          <p>Read More...</p>
+          <p onClick={onClick}>Read More...</p>
         </div>
     </div>
   );

@@ -1,8 +1,14 @@
 import React from "react";
 import styles from "./Header.module.css";
 import { NavLink } from "react-router-dom";
+import { useState } from "react";
 
 function Header() {
+  const [searchText, setSearchText] = useState("");
+  function handleSubmit(){
+    setSearchText("");
+  }
+
   return (
     <div className={styles.header}>
         <div className={styles.insideHeader}>
@@ -11,8 +17,18 @@ function Header() {
               <NavLink to="/home">Newsify</NavLink>
             </h1>
             <form className={styles.searchBox}>
-                <input type="text" className={styles.searchInput} placeholder="Search..." />
-                <i className={"fa fa-search search-icon " + styles.searchIcon}></i>
+                <input type="text"
+                       className={styles.searchInput}
+                       placeholder="Search..."
+                       name="searchText"
+                       id="searchText"
+                       value={searchText}
+                       onChange={(e) => setSearchText(e.target.value)} 
+                />
+
+                <NavLink to={`/search/${searchText}`}>
+                  <i className={"fa fa-search search-icon " + styles.searchIcon} onClick={handleSubmit}/>
+                </NavLink>
             </form>
             <h3> 
               <NavLink to="/saved">

@@ -2,12 +2,13 @@
 import "./App.css";
 import { Routes, Route } from "react-router-dom";
 import axios from "axios";
+import { useDispatch } from "react-redux";
+import { useEffect } from "react";
 import Header from "./Header";
 import Home from "./Home";
 import Saved from "./Saved";
+import Search from "./Search";
 import { setNews } from "./store/slices/news";
-import { useDispatch } from "react-redux";
-import { useEffect } from "react";
 
 function App() {
     const API_KEY = "eb88c94ff5c0403dbab88f7a05913667";
@@ -30,6 +31,7 @@ function App() {
             <Routes>
                 <Route path="/home" element={<Home/>} />
                 <Route path="/saved" element={<Saved/>} />
+                <Route path="/search/:searchText" element={<Search/>} />
                 <Route path="*" element={<Home/>} />
             </Routes>
         </div>
