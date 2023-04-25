@@ -4,6 +4,7 @@ import { Routes, Route } from "react-router-dom";
 import axios from "axios";
 import Header from "./Header";
 import Home from "./Home";
+import Saved from "./Saved";
 import { setNews } from "./store/slices/news";
 import { useDispatch } from "react-redux";
 import { useEffect } from "react";
@@ -28,7 +29,8 @@ function App() {
             <Header/>
             <Routes>
                 <Route path="/home" element={<Home/>} />
-                <Route path="*" element={<Home />} />
+                <Route path="/saved" element={<Saved/>} />
+                <Route path="*" element={<Home/>} />
             </Routes>
         </div>
     );

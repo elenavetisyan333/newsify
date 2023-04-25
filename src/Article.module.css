@@ -7,7 +7,7 @@
     justify-content: space-between;
     flex-direction: column;
     gap: 10px;
-
+    cursor: pointer;
 }
 
 .article img{
@@ -36,6 +36,9 @@
     gap:14px;
     font-size: 21px;
     color: #ebebeb;
+}
+.saveAndShare i:hover{
+    cursor: pointer;
 }
 .forReader p{
     font-size: 14px;

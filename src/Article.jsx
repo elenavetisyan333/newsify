@@ -1,4 +1,3 @@
-/* eslint-disable react/prop-types */
 import React from "react";
 import styles from "./Article.module.css";
 import { format } from "date-fns";
@@ -6,7 +5,7 @@ import { useState } from "react";
 import { setSavedNews } from "./store/slices/savedNews";
 import { useDispatch } from "react-redux";
 
-function Article({article}) { 
+function Article({article, onClick}) { 
     const dispatch = useDispatch();
     const [saved, setSaved] = useState(false);
     const date = new Date(article.publishedAt);
@@ -17,7 +16,7 @@ function Article({article}) {
       setSaved(!saved);
     }
   return (
-    <div className={styles.article}>
+    <div className={styles.article} onClick={onClick}>
 
         <img src={article.urlToImage ? article.urlToImage : "https://storage.googleapis.com/stenbracka/public/placeholder.jpg"} alt="article-photo" />
 
@@ -32,8 +31,8 @@ function Article({article}) {
 
         <div className={styles.forReader}>
           <div className={styles.saveAndShare}>
-            <i className={saved ? "fa-solid fa-bookmark" : "fa-regular fa-bookmark"} onClick={checkSaved}></i>
-            <i className="fa-regular fa-paper-plane"></i>
+            <i className={saved ? "fa-solid fa-bookmark" : "fa-regular fa-bookmark"} onClick={checkSaved} />
+            <i className="fa-regular fa-paper-plane" onClick={() => navigator.share(article)} />
           </div>
 
           <p>Read More...</p>
