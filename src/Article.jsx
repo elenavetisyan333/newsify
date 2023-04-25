@@ -1,21 +1,20 @@
 import React from "react";
 import styles from "./Article.module.css";
 import { format } from "date-fns";
-import { useState } from "react";
 import { setSavedNews } from "./store/slices/savedNews";
+import { changeSavedState } from "./store/slices/news";
 import { useDispatch } from "react-redux";
 
 function Article({article, onClick}) { 
     const dispatch = useDispatch();
-    const [saved, setSaved] = useState(false);
     const date = new Date(article.publishedAt);
     const formattedDate = format(date, "MM/dd/yyyy");
 
     function checkSaved(){
       dispatch(setSavedNews({article}));
-      setSaved(!saved);
+      dispatch(changeSavedState({article}));
     }
-    
+
   return (
     <div className={styles.article}>
 
@@ -32,7 +31,7 @@ function Article({article, onClick}) {
 
         <div className={styles.forReader}>
           <div className={styles.saveAndShare}>
-            <i className={saved ? "fa-solid fa-bookmark" : "fa-regular fa-bookmark"} onClick={checkSaved} />
+            <i className={article.isSaved ? "fa-solid fa-bookmark" : "fa-regular fa-bookmark"} onClick={checkSaved} />
             <i className="fa-regular fa-paper-plane" onClick={() => navigator.share(article)} />
           </div>
 

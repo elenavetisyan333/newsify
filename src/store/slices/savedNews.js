@@ -15,7 +15,10 @@ const savedNewsSlice = createSlice({
             }
             else{
                 state.savedNews = [
-                    ...state.savedNews, payload.article
+                    ...state.savedNews, {
+                        ...payload.article,
+                        isSaved: true
+                    }
                 ];
             }
         }

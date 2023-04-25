@@ -7,11 +7,23 @@ const newsSlice = createSlice({
     },
     reducers: {
         setNews(state, {payload}){
-            state.news = payload;
+            state.news = payload.map(article => {
+                return {...article, isSaved: false};
+            });
+        },
+        changeSavedState(state, {payload}){
+            state.news = state.news.map(article => {
+                return article.url == payload.article.url ? (
+                    {
+                        ...article,
+                        isSaved: !article.isSaved
+                    }
+                ) : article;
+            });
         }
     }
 });
 
 
-export const { setNews } = newsSlice.actions;
+export const { setNews, changeSavedState } = newsSlice.actions;
 export default newsSlice.reducer;
