@@ -22,7 +22,7 @@ function Article({article, onClick}) {
 
         <h3>{article.title}</h3>
 
-        <p className={styles.description}>{article.description}</p>
+        {/* <p className={styles.description}>{article.description}</p> */}
 
         <div className={styles.authorAndDate}>
             <p className={styles.author}>{article.author}</p>

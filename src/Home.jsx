@@ -1,15 +1,35 @@
 import React from "react";
 import styles from "./Home.module.css";
+import axios from "axios";
+import { useDispatch } from "react-redux";
+import { useEffect } from "react";
+import { setNews } from "./store/slices/news";
 import { useState } from "react";
 import { useSelector } from "react-redux";
 import Article from "./Article";
 import Modal from "./Modal";
+import Category from "./Category";
 
 function Home() {
+    const API_KEY = "eb88c94ff5c0403dbab88f7a05913667";
     const articles = useSelector(store => store.news.news);
-
+    const categories = ["business", "entertainment", "general", "health", "science", "sports", "technology"];
+    const [selectedCategory, setSelectedCategory] = useState("");
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [selectedArticle, setSelectedArticle] = useState({});
+    const dispatch = useDispatch();
+
+    async function getNews(){
+        const news = await axios
+                            .get(`https://newsapi.org/v2/top-headlines?country=us&category=${selectedCategory}&apiKey=${API_KEY}`)
+                            .then(rsp => rsp.data.articles);
+        
+        dispatch(setNews(news));
+        console.log(news);    
+    }
+    useEffect(()=>{
+        getNews();
+    },[selectedCategory]);
   
     function handleArticleClick(article){
       setSelectedArticle(article);
@@ -22,7 +42,19 @@ function Home() {
     }
 
     return (
-        <div className="content">
+        <div className={styles.content}>
+            <div className={styles.categories}>
+                {
+                    categories.map((category) =>{
+                        return <Category 
+                                    category={category}
+                                    key={`category-${category}`}
+                                    setSelectedCategory={setSelectedCategory}
+                            />;
+                    })
+                }
+            </div>
+
             <div className={styles.homePage}>
                 <div className={styles.newsPart}>
                     {
