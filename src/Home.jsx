@@ -8,7 +8,7 @@ import { useState } from "react";
 import { useSelector } from "react-redux";
 import Article from "./Article";
 import Modal from "./Modal";
-import Category from "./Category";
+// import { countries } from "./countries";
 
 function Home() {
     const API_KEY = "eb88c94ff5c0403dbab88f7a05913667";
@@ -43,16 +43,16 @@ function Home() {
 
     return (
         <div className={styles.content}>
-            <div className={styles.categories}>
-                {
-                    categories.map((category) =>{
-                        return <Category 
-                                    category={category}
-                                    key={`category-${category}`}
-                                    setSelectedCategory={setSelectedCategory}
-                            />;
-                    })
-                }
+            <div className="countriesAndCategories">
+                <div className={styles.categories}>
+                    {
+                        categories.map((category) =>{
+                            return(
+                                <button className={styles.category} key={`category-${category}`} onClick={() => setSelectedCategory(category)}> {category} </button>
+                            );
+                        })
+                    }                       
+                </div>
             </div>
 
             <div className={styles.homePage}>
