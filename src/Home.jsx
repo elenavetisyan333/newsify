@@ -37,7 +37,6 @@ function Home() {
         });
         dispatch(setNews(formattedNews));
     }
-    console.log(articles);
     useEffect(()=>{
         getNews();
     },[selectedCategory, selectedCountry]);

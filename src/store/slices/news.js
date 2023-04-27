@@ -7,9 +7,7 @@ const newsSlice = createSlice({
     },
     reducers: {
         setNews(state, {payload}){
-            state.news = payload.map(article => {
-                return  {...article, isSaved: article.isSaved}; 
-            });
+            state.news = payload;
         },
         changeSavedState(state, {payload}){
             state.news = state.news.map(article => {
