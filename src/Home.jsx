@@ -13,6 +13,7 @@ import { countries } from "./countries";
 function Home() {
     const API_KEY = "eb88c94ff5c0403dbab88f7a05913667";
     const articles = useSelector(store => store.news.news);
+    const savedNews = useSelector(store => store.savedNews.savedNews);
     const categories = ["general", "business", "entertainment", "health", "science", "sports", "technology"];
     const [selectedCategory, setSelectedCategory] = useState("");
     const [selectedCountry, setSelectedCountry] = useState("us");
@@ -24,10 +25,19 @@ function Home() {
         const news = await axios
                             .get(`https://newsapi.org/v2/top-headlines?country=${selectedCountry}&category=${selectedCategory}&apiKey=${API_KEY}`)
                             .then(rsp => rsp.data.articles);
-        
-        dispatch(setNews(news));
-        console.log(news);    
+
+
+        const formattedNews = news.map(article => {
+            return savedNews.find(saved => saved.url == article.url) ? (
+                {
+                    ...article,
+                    isSaved: true
+                }
+            ) : article;
+        });
+        dispatch(setNews(formattedNews));
     }
+    console.log(articles);
     useEffect(()=>{
         getNews();
     },[selectedCategory, selectedCountry]);
