@@ -15,7 +15,7 @@ function Modal({ isOpen, article, onClose }) {
           <p className={styles.author}>{article.author}</p>
           <p className={styles.publishedAt}>{article.publishedAt}</p>
           <img className={styles.image} src={article.urlToImage} alt={article.title} />
-          <p className={styles.content}>{article.content}</p>
+          <p className={styles.content}>{article.description}</p>
           <a className={styles.link} href={article.url} target="_blank" rel="noopener noreferrer">Read More</a>
         </div>
 

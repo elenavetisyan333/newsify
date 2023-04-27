@@ -13,7 +13,7 @@ import { countries } from "./countries";
 function Home() {
     const API_KEY = "eb88c94ff5c0403dbab88f7a05913667";
     const articles = useSelector(store => store.news.news);
-    const categories = ["business", "entertainment", "general", "health", "science", "sports", "technology"];
+    const categories = ["general", "business", "entertainment", "health", "science", "sports", "technology"];
     const [selectedCategory, setSelectedCategory] = useState("");
     const [selectedCountry, setSelectedCountry] = useState("us");
     const [isModalOpen, setIsModalOpen] = useState(false);
