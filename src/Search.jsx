@@ -102,7 +102,7 @@ function Search() {
           }
       }/>
       ) : ( articles.length == 0 ? (
-            <img className={styles.searchImg} src="../public/search.jpg" alt=""/>
+            <img className={styles.searchImg} src="/search.jpg" alt=""/>
       ) : (
         <div className="content">
             <div className={styles.homePage}>

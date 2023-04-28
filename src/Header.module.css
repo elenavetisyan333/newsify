@@ -27,7 +27,7 @@
     color: #b7b7b7;
 }
 
-.searchIcon{
+.searchButton{
     position: absolute;
     top: 50%;
     right: 10px;
@@ -35,6 +35,9 @@
     padding: 5px;
     font-size: 18px;
     color: #d8d8d8;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
 }
 
 .savedArticles{

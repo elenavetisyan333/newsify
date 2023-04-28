@@ -119,7 +119,7 @@ function Home() {
                     </div>
 
                     
-                    <select className={styles.countries} onChange={(e) => setSelectedCountry(e.target.value)}>
+                    <select className={styles.countries} onChange={(e) => setSelectedCountry(e.target.value)} value={selectedCountry}>
                         <option value="us">Select a Country</option>;
                         {
                             countries.map((country) =>{
