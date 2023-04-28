@@ -20,7 +20,7 @@ function Article({article, onClick}) {
 
         <img src={article.urlToImage ? article.urlToImage : "https://storage.googleapis.com/stenbracka/public/placeholder.jpg"} alt="article-photo" />
 
-        <h3>{article.title}</h3>
+        <h3 onClick={onClick} >{article.title}</h3>
 
         {/* <p className={styles.description}>{article.description}</p> */}
 

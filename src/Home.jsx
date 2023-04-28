@@ -14,8 +14,7 @@ import Pagination from "@mui/material/Pagination";
 
 
 function Home() {
-    // const API_KEY = "eb88c94ff5c0403dbab88f7a05913667";
-    const API_KEY = "0fff74d3c376404e916b48d5f60ce26f";
+    const API_KEY = "eb88c94ff5c0403dbab88f7a05913667";
     const articles = useSelector(store => store.news.news);
     const savedNews = useSelector(store => store.savedNews.savedNews);
     const dispatch = useDispatch();
@@ -98,7 +97,7 @@ function Home() {
     }
     return (
         loading ? (
-            <img src="../public/loading.svg" alt="" style={
+            <img src="/loading.svg" alt="" style={
                 {
                     position: "absolute",
                     top: "50%",

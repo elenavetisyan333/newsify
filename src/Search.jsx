@@ -12,7 +12,7 @@ import { setNews } from "./store/slices/news";
 import { useDispatch } from "react-redux";
 
 function Search() {
-    const API_KEY = "0fff74d3c376404e916b48d5f60ce26f";
+    const API_KEY = "eb88c94ff5c0403dbab88f7a05913667";
     const articles = useSelector(store => store.news.news);
     const savedNews = useSelector(store => store.savedNews.savedNews);
 
@@ -87,14 +87,13 @@ function Search() {
         dispatch(setNews(formattedNews));
         setTotalResults(news.totalResults > 100 ? 100 : news.articles.length);
     }
-    
     useEffect(()=>{
       setLoading(true);
       getNews();
     },[searchText, currentPage]);
     return (
       loading ? (
-        <img src="../public/loading.svg" alt="" style={
+        <img src="/loading.svg" alt="" style={
           {
               position: "absolute",
               top: "50%",
@@ -102,6 +101,8 @@ function Search() {
               transform: "translate(-50%, -50%)",
           }
       }/>
+      ) : ( articles.length == 0 ? (
+            <img className={styles.searchImg} src="../public/search.jpg" alt=""/>
       ) : (
         <div className="content">
             <div className={styles.homePage}>
@@ -130,6 +131,7 @@ function Search() {
                 />
             </div>
         </div>
+      )
     )
   );
 }
