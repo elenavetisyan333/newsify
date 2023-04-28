@@ -1,9 +1,8 @@
 import React from "react";
-import styles from "./Home.module.css";
 import { useSelector } from "react-redux";
 import { useState } from "react";
-import Article from "./Article";
 import Modal from "./Modal";
+import NewsPart from "./NewsPart";
 
 function Saved() {
     const savedArticles = useSelector(store => store.savedNews.savedNews);
@@ -22,18 +21,8 @@ function Saved() {
     }
 
     return (
-        <div className={styles.homePage}>
-            <div className={styles.newsPart}>
-                {
-                    savedArticles.map((article, i) =>{
-                        return <Article 
-                                    article={article}  
-                                    key={`article-${i}-${article.title}`}
-                                    onClick={() => handleArticleClick(article)}
-                                />;
-                    })
-                }
-            </div>
+        <div>
+            <NewsPart articles={savedArticles} handleArticleClick={handleArticleClick}/>
             {isModalOpen && (
                 <Modal isOpen={isModalOpen} article={selectedArticle} onClose={handleCloseModal} />
             )}

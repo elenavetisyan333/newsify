@@ -6,7 +6,7 @@ import { useEffect } from "react";
 import { setNews } from "./store/slices/news";
 import { useState } from "react";
 import { useSelector } from "react-redux";
-import Article from "./Article";
+import NewsPart from "./NewsPart";
 import Modal from "./Modal";
 import { countries } from "./countries";
 import styled from "@emotion/styled";
@@ -131,19 +131,8 @@ function Home() {
                     </select>
                 </div>
 
-                <div className={styles.homePage}>
-                    <div className={styles.newsPart}>
-                        {
-                            articles.map((article, i) =>{
-                                return <Article 
-                                            article={article}  
-                                            key={`article-${i}-${article.title}`}
-                                            onClick={() => handleArticleClick(article)}
-                                        />;
-                            })
-                        }
-                    </div>
-                </div>
+                <NewsPart articles={articles} handleArticleClick={handleArticleClick}/>    
+                  
                 {isModalOpen && (
                     <Modal isOpen={isModalOpen} article={selectedArticle} onClose={handleCloseModal} />
                 )}

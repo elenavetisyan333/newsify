@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 import { useEffect } from "react";
 import axios from "axios";
 import styles from "./Home.module.css";
-import Article from "./Article";
+import NewsPart from "./NewsPart";
 import Modal from "./Modal";
 import styled from "@emotion/styled";
 import Pagination from "@mui/material/Pagination";
@@ -105,22 +105,13 @@ function Search() {
             <img className={styles.searchImg} src="/search.jpg" alt=""/>
       ) : (
         <div className="content">
-            <div className={styles.homePage}>
-                <div className={styles.newsPart}>
-                    {
-                        articles.map((article, i) =>{
-                            return <Article 
-                                        article={article}  
-                                        key={`article-${i}-${article.title}`}
-                                        onClick={() => handleArticleClick(article)}
-                                    />;
-                        })
-                    }
-                </div> 
-            </div>
+
+            <NewsPart articles={articles} handleArticleClick={handleArticleClick}/>    
+
             {isModalOpen && (
                 <Modal isOpen={isModalOpen} article={selectedArticle} onClose={handleCloseModal} />
             )}
+
             <div className={styles.pagination}>
                 <StyledPagination
                     page={currentPage}
@@ -130,6 +121,7 @@ function Search() {
                     color="primary"
                 />
             </div>
+            
         </div>
       )
     )
