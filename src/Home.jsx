@@ -31,14 +31,21 @@ function Home() {
     const [currentPage, setCurrentPage] = useState(1);
     const pageSize = 20;
 
+    const [loading, setLoading] = useState(false);
+
     const StyledPagination = styled(Pagination)({
         "& .MuiPaginationItem-root": {
-          color: "#000",
+          color: "#fff",
           borderColor: "#000",
           fontWeight: "bold",
+          fontSize: "19px",
           "&.Mui-selected": {
-            backgroundColor: "#000",
-            color: "#fff",
+            backgroundColor: "#d8b553",
+            color: "#000",
+            "&:hover": {
+                backgroundColor: "#000",
+                color: "#fff"
+              }
           },
           "&:hover": {
             backgroundColor: "white",
@@ -53,7 +60,10 @@ function Home() {
     async function getNews(){
         const news = await axios
                             .get(`https://newsapi.org/v2/top-headlines?country=${selectedCountry}&category=${selectedCategory}&pageSize=${pageSize}&page=${currentPage}&apiKey=${API_KEY}`)
-                            .then(rsp => rsp.data);
+                            .then(rsp => {
+                                setLoading(false);
+                                return rsp.data;
+                            });
 
         
         const formattedNews = news.articles.map(article => {
@@ -69,6 +79,7 @@ function Home() {
     }
 
     useEffect(()=>{
+        setLoading(true);
         getNews();
     },[selectedCategory, selectedCountry, currentPage]);
   
@@ -86,58 +97,69 @@ function Home() {
       setIsModalOpen(false);
     }
     return (
-        <div className={styles.content}>
-            <div className={styles.categoriesAndCountries}>
-                <div className={styles.categories}>
-                    {
-                        categories.map((category) =>{
-                            return(
-                                <button className={styles.category} key={`category-${category}`} onClick={() => setSelectedCategory(category)}> {category} </button>
-                            );
-                        })
-                    }                       
+        loading ? (
+            <img src="../public/loading.svg" alt="" style={
+                {
+                    position: "absolute",
+                    top: "50%",
+                    left: "50%",
+                    transform: "translate(-50%, -50%)",
+                }
+            }/>
+        ) : (
+            <div className={styles.content}>
+                <div className={styles.categoriesAndCountries}>
+                    <div className={styles.categories}>
+                        {
+                            categories.map((category) =>{
+                                return(
+                                    <button className={styles.category} key={`category-${category}`} onClick={() => setSelectedCategory(category)}> {category} </button>
+                                );
+                            })
+                        }                       
+                    </div>
+
+                    
+                    <select className={styles.countries} onChange={(e) => setSelectedCountry(e.target.value)}>
+                        <option value="us">Select a Country</option>;
+                        {
+                            countries.map((country) =>{
+                                return (
+                                    <option key={`country-${country.name}`} value={country.code}>{country.name}</option>
+                                );
+                            })
+                        }
+                    </select>
                 </div>
 
-                
-                <select className={styles.countries} onChange={(e) => setSelectedCountry(e.target.value)}>
-                    <option value="us">Select a Country</option>;
-                    {
-                        countries.map((country) =>{
-                            return (
-                                <option key={`country-${country.name}`} value={country.code}>{country.name}</option>
-                            );
-                        })
-                    }
-                </select>
-            </div>
+                <div className={styles.homePage}>
+                    <div className={styles.newsPart}>
+                        {
+                            articles.map((article, i) =>{
+                                return <Article 
+                                            article={article}  
+                                            key={`article-${i}-${article.title}`}
+                                            onClick={() => handleArticleClick(article)}
+                                        />;
+                            })
+                        }
+                    </div>
+                </div>
+                {isModalOpen && (
+                    <Modal isOpen={isModalOpen} article={selectedArticle} onClose={handleCloseModal} />
+                )}
 
-            <div className={styles.homePage}>
-                <div className={styles.newsPart}>
-                    {
-                        articles.map((article, i) =>{
-                            return <Article 
-                                        article={article}  
-                                        key={`article-${i}-${article.title}`}
-                                        onClick={() => handleArticleClick(article)}
-                                    />;
-                        })
-                    }
+                <div className={styles.pagination}>
+                    <StyledPagination
+                        page={currentPage}
+                        count={Math.ceil(totalResults / pageSize)}
+                        pagesize={pageSize}
+                        onChange={handlePageChange}
+                        color="primary"
+                    />
                 </div>
             </div>
-            {isModalOpen && (
-                <Modal isOpen={isModalOpen} article={selectedArticle} onClose={handleCloseModal} />
-            )}
-
-            <div className={styles.pagination}>
-                <StyledPagination
-                    page={currentPage}
-                    count={Math.ceil(totalResults / pageSize)}
-                    pagesize={pageSize}
-                    onChange={handlePageChange}
-                    color="primary"
-                />
-            </div>
-        </div>
+        )
     );
 }
 
