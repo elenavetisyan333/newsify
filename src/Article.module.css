@@ -45,3 +45,10 @@ h3{
     font-size: 14px;
     cursor: pointer;
 }
+
+/* Responsiveness */
+@media screen and (max-width: 830px) {
+    .article img{
+        height: 300px;
+    }
+}
