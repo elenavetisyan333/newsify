@@ -78,3 +78,9 @@ a{
     border-radius: 5px;
     cursor: pointer;
 }
+
+/* Pagination */
+.pagination{
+    display: flex;
+    justify-content: center;
+}

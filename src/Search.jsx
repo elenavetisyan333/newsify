@@ -5,6 +5,9 @@ import axios from "axios";
 import styles from "./Home.module.css";
 import Article from "./Article";
 import Modal from "./Modal";
+import styled from "@emotion/styled";
+import Pagination from "@mui/material/Pagination";
+
 
 
 function Search() {
@@ -15,6 +18,10 @@ function Search() {
 
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [selectedArticle, setSelectedArticle] = useState({});
+
+    const [totalResults, setTotalResults] = useState(0);
+    const [currentPage, setCurrentPage] = useState(1);
+    const pageSize = 20;
   
     function handleArticleClick(article){
       setSelectedArticle(article);
@@ -25,18 +32,38 @@ function Search() {
       setSelectedArticle({});
       setIsModalOpen(false);
     }
-    
+
+    function handlePageChange(event, page){
+        setCurrentPage(page);
+    }
+
+    const StyledPagination = styled(Pagination)({
+        "& .MuiPaginationItem-root": {
+          color: "#000",
+          borderColor: "#000",
+          "&.Mui-selected": {
+            backgroundColor: "#000",
+            color: "#fff",
+          },
+          "&:hover": {
+            backgroundColor: "#eee",
+            color: "black"
+          },
+        },
+      });
+
     async function getNews(){
         setResults([]);
         const news = await axios
-                    .get(`https://newsapi.org/v2/everything?q=${searchText}}&apiKey=${API_KEY}`)
+                    .get(`https://newsapi.org/v2/everything?q=${searchText}}&pageSize=${pageSize}&page=${currentPage}&apiKey=${API_KEY}`)
                     .then(rsp => rsp.data);
         setResults(news.articles);
+        setTotalResults(news.totalResults > 100 ? 100 : news.articles.length);
     }
     
     useEffect(()=>{
         getNews();
-    },[searchText]);
+    },[searchText, currentPage]);
 
   return (
     <div className="content">
@@ -56,6 +83,15 @@ function Search() {
         {isModalOpen && (
             <Modal isOpen={isModalOpen} article={selectedArticle} onClose={handleCloseModal} />
         )}
+        <div className={styles.pagination}>
+            <StyledPagination
+                page={currentPage}
+                count={Math.ceil(totalResults / pageSize)}
+                pagesize={pageSize}
+                onChange={handlePageChange}
+                color="primary"
+            />
+        </div>
     </div>
   );
 }
