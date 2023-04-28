@@ -7,14 +7,18 @@ import Article from "./Article";
 import Modal from "./Modal";
 import styled from "@emotion/styled";
 import Pagination from "@mui/material/Pagination";
-
-
+import { useSelector } from "react-redux";
+import { setNews } from "./store/slices/news";
+import { useDispatch } from "react-redux";
 
 function Search() {
+    const API_KEY = "0fff74d3c376404e916b48d5f60ce26f";
+    const articles = useSelector(store => store.news.news);
+    const savedNews = useSelector(store => store.savedNews.savedNews);
+
     const location = useParams();
     const searchText = location.searchText;
-    const API_KEY = "eb88c94ff5c0403dbab88f7a05913667";
-    const [results, setResults] = useState([]);
+    const dispatch = useDispatch();
 
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [selectedArticle, setSelectedArticle] = useState({});
@@ -53,27 +57,34 @@ function Search() {
       });
 
     async function getNews(){
-        setResults([]);
         const news = await axios
                     .get(`https://newsapi.org/v2/everything?q=${searchText}}&pageSize=${pageSize}&page=${currentPage}&apiKey=${API_KEY}`)
                     .then(rsp => rsp.data);
-        setResults(news.articles);
+
+        const formattedNews = news.articles.map(article => {
+            return savedNews.find(saved => saved.url == article.url) ? (
+                {
+                    ...article,
+                    isSaved: true
+                }
+            ) : article;
+        });
+        dispatch(setNews(formattedNews));
         setTotalResults(news.totalResults > 100 ? 100 : news.articles.length);
     }
     
     useEffect(()=>{
         getNews();
     },[searchText, currentPage]);
-
   return (
     <div className="content">
         <div className={styles.homePage}>
             <div className={styles.newsPart}>
                 {
-                    results.map((article, i) =>{
+                    articles.map((article, i) =>{
                         return <Article 
                                     article={article}  
-                                    key={`article-${i}`}
+                                    key={`article-${i}-${article.title}`}
                                     onClick={() => handleArticleClick(article)}
                                 />;
                     })

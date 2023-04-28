@@ -117,7 +117,7 @@ function Home() {
                         articles.map((article, i) =>{
                             return <Article 
                                         article={article}  
-                                        key={`article-${i}`}
+                                        key={`article-${i}-${article.title}`}
                                         onClick={() => handleArticleClick(article)}
                                     />;
                         })
