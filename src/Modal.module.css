@@ -82,4 +82,14 @@
     text-decoration: none;
     margin-top: 20px;
 }
-  
+
+@media screen and (max-width: 1120px) {
+    .image{
+        width: 80%;
+    }
+}
+@media screen and (max-width: 770px) {
+    .image{
+        width: 100%;
+    }
+}
