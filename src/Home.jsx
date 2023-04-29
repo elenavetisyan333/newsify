@@ -108,7 +108,7 @@ function Home() {
         ) : (
             <div className={styles.content}>
                 <div className={styles.categoriesAndCountries}>
-                    <div className={styles.categories}>
+                    <div className={styles.spreadCategories}>
                         {
                             categories.map((category) =>{
                                 return(
@@ -118,7 +118,17 @@ function Home() {
                         }                       
                     </div>
 
-                    
+                    <select className={styles.restedCategories } onChange={(e) => setSelectedCategory(e.target.value)} value={selectedCategory}>
+                        <option value="general">Select a Category</option>;
+                        {
+                            categories.map((category) =>{
+                                return (
+                                    <option key={category} value={category}>{category}</option>
+                                );
+                            })
+                        }
+                    </select>
+
                     <select className={styles.countries} onChange={(e) => setSelectedCountry(e.target.value)} value={selectedCountry}>
                         <option value="us">Select a Country</option>;
                         {
