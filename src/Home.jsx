@@ -112,7 +112,12 @@ function Home() {
                         {
                             categories.map((category) =>{
                                 return(
-                                    <button className={styles.category} key={`category-${category}`} onClick={() => setSelectedCategory(category)}> {category} </button>
+                                    <button 
+                                        className={styles.category} 
+                                        key={`category-${category}`} 
+                                        onClick={() => setSelectedCategory(category)} 
+                                        style={{backgroundColor: selectedCategory==category ? "rgba(0, 0, 0, 0.3)" : "rgba(0, 0, 0, 0.1)"}}
+                                    > {category} </button>
                                 );
                             })
                         }                       
