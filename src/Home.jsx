@@ -28,7 +28,7 @@ function Home() {
 
     const [totalResults, setTotalResults] = useState(0);
     const [currentPage, setCurrentPage] = useState(1);
-    const pageSize = 20;
+    const pageSize = 22;
 
     const [loading, setLoading] = useState(false);
 
@@ -64,7 +64,7 @@ function Home() {
                                 return rsp.data;
                             });
 
-        
+        console.log(news.articles);
         const formattedNews = news.articles.map(article => {
             return savedNews.find(saved => saved.url == article.url) ? (
                 {
@@ -76,7 +76,7 @@ function Home() {
         dispatch(setNews(formattedNews));
         setTotalResults(news.totalResults > 100 ? 100 : news.articles.length);
     }
-
+    
     useEffect(()=>{
         setLoading(true);
         getNews();
@@ -115,7 +115,8 @@ function Home() {
                                     <button 
                                         className={styles.category} 
                                         key={`category-${category}`} 
-                                        onClick={() => setSelectedCategory(category)} 
+                                        onClick={() => {setSelectedCategory(category);
+                                                        setCurrentPage(1);}}
                                         style={{backgroundColor: selectedCategory==category ? "rgba(0, 0, 0, 0.3)" : "rgba(0, 0, 0, 0.1)"}}
                                     > {category} </button>
                                 );
@@ -123,7 +124,10 @@ function Home() {
                         }                       
                     </div>
 
-                    <select className={styles.restedCategories } onChange={(e) => setSelectedCategory(e.target.value)} value={selectedCategory}>
+                    <select className={styles.restedCategories }
+                            onChange={(e) => {setSelectedCategory(e.target.value);setCurrentPage(1);}} 
+                            value={selectedCategory}
+                    >
                         <option value="general">Select a Category</option>;
                         {
                             categories.map((category) =>{
@@ -134,7 +138,10 @@ function Home() {
                         }
                     </select>
 
-                    <select className={styles.countries} onChange={(e) => setSelectedCountry(e.target.value)} value={selectedCountry}>
+                    <select className={styles.countries} 
+                            onChange={(e) =>{setSelectedCountry(e.target.value); setCurrentPage(1);}} 
+                            value={selectedCountry}
+                    >
                         <option value="us">Select a Country</option>;
                         {
                             countries.map((country) =>{
