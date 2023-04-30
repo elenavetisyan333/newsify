@@ -14,7 +14,7 @@ import Pagination from "@mui/material/Pagination";
 
 
 function Home() {
-    const API_KEY = "eb88c94ff5c0403dbab88f7a05913667";
+    const API_KEY = "0fff74d3c376404e916b48d5f60ce26f";
     const articles = useSelector(store => store.news.news);
     const savedNews = useSelector(store => store.savedNews.savedNews);
     const dispatch = useDispatch();
@@ -28,7 +28,7 @@ function Home() {
 
     const [totalResults, setTotalResults] = useState(0);
     const [currentPage, setCurrentPage] = useState(1);
-    const pageSize = 22;
+    const pageSize = 20;
 
     const [loading, setLoading] = useState(false);
 
@@ -64,7 +64,6 @@ function Home() {
                                 return rsp.data;
                             });
 
-        console.log(news.articles);
         const formattedNews = news.articles.map(article => {
             return savedNews.find(saved => saved.url == article.url) ? (
                 {
@@ -73,8 +72,9 @@ function Home() {
                 }
             ) : article;
         });
+        
         dispatch(setNews(formattedNews));
-        setTotalResults(news.totalResults > 100 ? 100 : news.articles.length);
+        setTotalResults(news.totalResults > 100 ? 100 : news.totalResults);
     }
     
     useEffect(()=>{
@@ -82,7 +82,7 @@ function Home() {
         getNews();
     },[selectedCategory, selectedCountry, currentPage]);
   
-    function handlePageChange(event, page){
+    function handlePageChange(page){
         setCurrentPage(page);
     }
 
@@ -90,7 +90,7 @@ function Home() {
       setSelectedArticle(article);
       setIsModalOpen(true);
     }
-  
+
     function handleCloseModal(){
       setSelectedArticle({});
       setIsModalOpen(false);
@@ -115,8 +115,7 @@ function Home() {
                                     <button 
                                         className={styles.category} 
                                         key={`category-${category}`} 
-                                        onClick={() => {setSelectedCategory(category);
-                                                        setCurrentPage(1);}}
+                                        onClick={() => {setSelectedCategory(category); setCurrentPage(1);}}
                                         style={{backgroundColor: selectedCategory==category ? "rgba(0, 0, 0, 0.3)" : "rgba(0, 0, 0, 0.1)"}}
                                     > {category} </button>
                                 );
@@ -125,7 +124,7 @@ function Home() {
                     </div>
 
                     <select className={styles.restedCategories }
-                            onChange={(e) => {setSelectedCategory(e.target.value);setCurrentPage(1);}} 
+                            onChange={(e) => {setSelectedCategory(e.target.value); setCurrentPage(1);}} 
                             value={selectedCategory}
                     >
                         <option value="general">Select a Category</option>;

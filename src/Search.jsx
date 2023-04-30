@@ -12,7 +12,7 @@ import { setNews } from "./store/slices/news";
 import { useDispatch } from "react-redux";
 
 function Search() {
-    const API_KEY = "eb88c94ff5c0403dbab88f7a05913667";
+    const API_KEY = "0fff74d3c376404e916b48d5f60ce26f";
     const articles = useSelector(store => store.news.news);
     const savedNews = useSelector(store => store.savedNews.savedNews);
 
@@ -85,7 +85,7 @@ function Search() {
             ) : article;
         });
         dispatch(setNews(formattedNews));
-        setTotalResults(news.totalResults > 100 ? 100 : news.articles.length);
+        setTotalResults(news.totalResults > 100 ? 100 : news.totalResults);
     }
     useEffect(()=>{
       setLoading(true);
