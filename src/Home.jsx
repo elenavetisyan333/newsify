@@ -82,7 +82,7 @@ function Home() {
         getNews();
     },[selectedCategory, selectedCountry, currentPage]);
   
-    function handlePageChange(page){
+    function handlePageChange(event, page){
         setCurrentPage(page);
     }
 
